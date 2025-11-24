@@ -6,6 +6,7 @@ import { ArrowRight, Terminal, Linkedin, Mail, Code2, Database, Cloud } from "lu
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/lib/language-context"
+import { GlitchText } from "@/components/ui/glitch-text"
 
 export function Hero() {
     const { t, language } = useLanguage()
@@ -67,7 +68,7 @@ export function Hero() {
                                 transition={{ delay: 0.2 }}
                             >
                                 <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10 mb-4">
-                                    {t.hero.available}
+                                    <GlitchText text={t.hero.available} trigger={language} />
                                 </Badge>
                             </motion.div>
 
@@ -76,12 +77,12 @@ export function Hero() {
                             </h1>
 
                             <h2 className="text-xl md:text-3xl text-muted-foreground font-mono max-w-2xl">
-                                {t.hero.role}
+                                <GlitchText text={t.hero.role} trigger={language} />
                             </h2>
                         </div>
 
                         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-                            {t.hero.description}
+                            <GlitchText text={t.hero.description} trigger={language} />
                         </p>
 
                         {/* Broadened Skills Display - Reordered */}
@@ -99,7 +100,7 @@ export function Hero() {
 
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-6">
                             <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-8 text-lg">
-                                {t.hero.cta_projects} <ArrowRight className="w-5 h-5" />
+                                <GlitchText text={t.hero.cta_projects} trigger={language} /> <ArrowRight className="w-5 h-5" />
                             </Button>
 
                             <div className="flex gap-2">
