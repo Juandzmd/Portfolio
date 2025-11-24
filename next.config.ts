@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
 
   // IMPORTANT: If deploying to a user page (username.github.io), leave basePath empty.
   // If deploying to a project page (username.github.io/repo-name), uncomment and set the repo name.
-  // basePath: '/portfolio-repo-name',
+  basePath: '/Portfolio',
 };
 
 export default nextConfig;
