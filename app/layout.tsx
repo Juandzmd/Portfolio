@@ -1,39 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { LanguageProvider } from "@/lib/language-context";
-import { LanguageToggle } from "@/components/language-toggle";
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { LanguageProvider } from "@/lib/language-context"
+import { LanguageToggle } from "@/components/language-toggle"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
-  title: "Juan Salvador Díaz Modinger | AI Interface Portfolio",
-  description: "Full Stack Developer & Salesforce Consultant specialized in Intelligent Automation.",
-};
+  title: "Juan Díaz - Full Stack Developer & AI Architect",
+  description: "Bridging the gap between Complex Software Architecture and AI Agents. Specializing in Next.js, Python, React, and intelligent automation with Agentforce.",
+  icons: {
+    icon: '/logo.png',
+  },
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${inter.variable}`}>
+      <body className="antialiased">
         <LanguageProvider>
           <LanguageToggle />
           {children}
         </LanguageProvider>
       </body>
     </html>
-  );
+  )
 }

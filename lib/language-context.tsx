@@ -55,9 +55,9 @@ type Translations = {
 const translations: Record<Language, Translations> = {
     en: {
         hero: {
-            prompt: "Generating portfolio for Juan Salvador...",
-            role: "Full Stack Developer & Salesforce Consultant",
-            description: "Bridging the gap between Complex Software Architecture and AI Agents. I specialize in building intelligent automation ecosystems using Agentforce, Next.js, and Python.",
+            prompt: "Generating portfolio for Juan Díaz...",
+            role: "Full Stack Developer & AI Architect",
+            description: "Bridging the gap between Complex Software Architecture and AI Agents. I specialize in building intelligent automation ecosystems using Next.js, Python, and React, enhanced by enterprise solutions like Agentforce.",
             cta_projects: "View Projects",
             cta_contact: "Contact Me",
             available: "Available for new projects"
@@ -118,9 +118,9 @@ const translations: Record<Language, Translations> = {
     },
     es: {
         hero: {
-            prompt: "Generando portafolio para Juan Salvador...",
-            role: "Desarrollador Full Stack & Consultor Salesforce",
-            description: "Uniendo la Arquitectura de Software Compleja con Agentes de IA. Me especializo en construir ecosistemas de automatización inteligente usando Agentforce, Next.js y Python.",
+            prompt: "Generando portafolio para Juan Díaz...",
+            role: "Desarrollador Full Stack & Arquitecto de IA",
+            description: "Uniendo la Arquitectura de Software Compleja con Agentes de IA. Me especializo en construir ecosistemas de automatización inteligente usando Next.js, Python y React, potenciados por soluciones empresariales como Agentforce.",
             cta_projects: "Ver Proyectos",
             cta_contact: "Contactar",
             available: "Disponible para nuevos proyectos"

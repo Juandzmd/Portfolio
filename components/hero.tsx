@@ -22,12 +22,12 @@ export function Hero() {
         if (text.length < t.hero.prompt.length) {
             const timeout = setTimeout(() => {
                 setText(t.hero.prompt.slice(0, text.length + 1))
-            }, 50)
+            }, 15) // 3x faster (was 50ms)
             return () => clearTimeout(timeout)
         } else {
             const timeout = setTimeout(() => {
                 setShowContent(true)
-            }, 500)
+            }, 200) // Reduced from 500ms
             return () => clearTimeout(timeout)
         }
     }, [text, t.hero.prompt])
@@ -72,8 +72,7 @@ export function Hero() {
                             </motion.div>
 
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/60">
-                                Juan Salvador <br className="hidden md:block" />
-                                <span className="text-primary">Díaz Modinger</span>
+                                <span className="text-primary">Juan Díaz</span>
                             </h1>
 
                             <h2 className="text-xl md:text-3xl text-muted-foreground font-mono max-w-2xl">
@@ -85,16 +84,16 @@ export function Hero() {
                             {t.hero.description}
                         </p>
 
-                        {/* Broadened Skills Display */}
+                        {/* Broadened Skills Display - Reordered */}
                         <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                             <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
                                 <Code2 className="w-4 h-4 text-primary" /> Full Stack Dev
                             </Badge>
                             <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
-                                <Cloud className="w-4 h-4 text-primary" /> Salesforce/Agentforce
+                                <Database className="w-4 h-4 text-primary" /> AI Architecture
                             </Badge>
                             <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
-                                <Database className="w-4 h-4 text-primary" /> AI Architecture
+                                <Cloud className="w-4 h-4 text-primary" /> Salesforce/Agentforce
                             </Badge>
                         </div>
 
