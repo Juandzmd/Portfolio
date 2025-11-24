@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Award, CheckCircle2 } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
 const certifications = [
     {
@@ -20,6 +21,8 @@ const certifications = [
 ]
 
 export function Certifications() {
+    const { t } = useLanguage()
+
     return (
         <section className="py-20 px-4">
             <div className="max-w-4xl mx-auto">
@@ -31,7 +34,7 @@ export function Certifications() {
                 >
                     <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-2">
                         <Award className="text-primary" />
-                        Certifications
+                        {t.certifications.title}
                     </h2>
                     <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
                 </motion.div>

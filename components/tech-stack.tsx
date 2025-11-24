@@ -3,26 +3,26 @@
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Cpu, Database, Cloud, Code2, Wrench } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
 const skillCategories = [
     {
-        title: "Core Development",
         icon: <Code2 className="w-6 h-6 text-primary" />,
         skills: ["React", "Next.js", "Node.js", "Python", "TypeScript", "SQL"]
     },
     {
-        title: "AI & Cloud",
         icon: <Cloud className="w-6 h-6 text-primary" />,
         skills: ["Agentforce", "Prompt Engineering", "Google Cloud", "Firebase"]
     },
     {
-        title: "Tools & Methodologies",
         icon: <Wrench className="w-6 h-6 text-primary" />,
         skills: ["Salesforce", "Tailwind CSS", "Git", "Scrum", "Design Thinking"]
     }
 ]
 
 export function TechStack() {
+    const { t } = useLanguage()
+
     return (
         <section className="py-20 px-4 bg-secondary/20">
             <div className="max-w-4xl mx-auto">
@@ -34,13 +34,13 @@ export function TechStack() {
                 >
                     <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-2">
                         <Cpu className="text-primary" />
-                        Tech Stack
+                        {t.skills.title}
                     </h2>
                     <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {skillCategories.map((category, index) => (
+                    {t.skills.categories.map((category, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -51,13 +51,13 @@ export function TechStack() {
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 bg-primary/10 rounded-lg">
-                                    {category.icon}
+                                    {skillCategories[index].icon}
                                 </div>
                                 <h3 className="font-bold text-lg">{category.title}</h3>
                             </div>
 
                             <div className="flex flex-wrap gap-2">
-                                {category.skills.map((skill, i) => (
+                                {skillCategories[index].skills.map((skill, i) => (
                                     <Badge
                                         key={i}
                                         variant="secondary"

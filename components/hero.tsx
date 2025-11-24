@@ -2,19 +2,26 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Terminal, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Terminal, Linkedin, Mail, Code2, Database, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useLanguage } from "@/lib/language-context"
 
 export function Hero() {
+    const { t, language } = useLanguage()
     const [text, setText] = useState("")
-    const fullText = "Generating portfolio for Juan Salvador..."
     const [showContent, setShowContent] = useState(false)
 
+    // Reset animation when language changes
     useEffect(() => {
-        if (text.length < fullText.length) {
+        setText("")
+        setShowContent(false)
+    }, [language])
+
+    useEffect(() => {
+        if (text.length < t.hero.prompt.length) {
             const timeout = setTimeout(() => {
-                setText(fullText.slice(0, text.length + 1))
+                setText(t.hero.prompt.slice(0, text.length + 1))
             }, 50)
             return () => clearTimeout(timeout)
         } else {
@@ -23,14 +30,14 @@ export function Hero() {
             }, 500)
             return () => clearTimeout(timeout)
         }
-    }, [text])
+    }, [text, t.hero.prompt])
 
     return (
         <section className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
             {/* Background Grid Effect */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-            <div className="z-10 w-full max-w-3xl space-y-8">
+            <div className="z-10 w-full max-w-4xl space-y-8">
                 {/* Prompt Bar */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -51,38 +58,49 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="space-y-6 text-center md:text-left"
+                        className="space-y-8 text-center md:text-left"
                     >
-                        <div className="space-y-2">
+                        <div className="space-y-4">
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.2 }}
                             >
                                 <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10 mb-4">
-                                    Available for new projects
+                                    {t.hero.available}
                                 </Badge>
                             </motion.div>
 
-                            <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/60">
                                 Juan Salvador <br className="hidden md:block" />
                                 <span className="text-primary">Díaz Modinger</span>
                             </h1>
 
-                            <h2 className="text-xl md:text-2xl text-muted-foreground font-mono">
-                                Desarrollador & AI Prompt Manager
+                            <h2 className="text-xl md:text-3xl text-muted-foreground font-mono max-w-2xl">
+                                {t.hero.role}
                             </h2>
                         </div>
 
-                        <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                            Desarrollador con +4 años fusionando arquitectura de software e Inteligencia Artificial.
-                            Especialista en crear puentes entre requisitos funcionales y soluciones automatizadas con
-                            <span className="text-primary font-semibold"> Agentforce</span> y ecosistemas modernos.
+                        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
+                            {t.hero.description}
                         </p>
 
-                        <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                            <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-6">
-                                Ver Proyectos <ArrowRight className="w-4 h-4" />
+                        {/* Broadened Skills Display */}
+                        <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                            <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
+                                <Code2 className="w-4 h-4 text-primary" /> Full Stack Dev
+                            </Badge>
+                            <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
+                                <Cloud className="w-4 h-4 text-primary" /> Salesforce/Agentforce
+                            </Badge>
+                            <Badge variant="secondary" className="px-3 py-1 gap-2 text-sm">
+                                <Database className="w-4 h-4 text-primary" /> AI Architecture
+                            </Badge>
+                        </div>
+
+                        <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-6">
+                            <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-8 text-lg">
+                                {t.hero.cta_projects} <ArrowRight className="w-5 h-5" />
                             </Button>
 
                             <div className="flex gap-2">

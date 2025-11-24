@@ -4,32 +4,19 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Briefcase } from "lucide-react"
-
-const experiences = [
-    {
-        company: "VASS LATAM",
-        role: "Consultor Funcional",
-        period: "Ago 2025 - Oct 2025",
-        description: "Diseño de soluciones con Agentforce (Salesforce) y automatización de flujos conversacionales inteligentes.",
-        skills: ["Agentforce", "Salesforce", "AI"]
-    },
-    {
-        company: "Proyecto Personal: Marketplace",
-        role: "Jefe de Proyecto & Full Stack",
-        period: "Mar 2025 - Jul 2025",
-        description: "Arquitectura escalable B2C/C2C con dashboards personalizados.",
-        skills: ["Next.js", "React", "Firebase", "Tailwind", "Webpay"]
-    },
-    {
-        company: "Ksepco",
-        role: "Trabajador Gráfico",
-        period: "Ene 2017 - Jul 2019",
-        description: "Control de calidad y precisión en procesos de producción.",
-        skills: ["Quality Control", "Process Optimization"]
-    }
-]
+import { useLanguage } from "@/lib/language-context"
 
 export function ExperienceTimeline() {
+    const { t } = useLanguage()
+
+    // Define skills for each item manually since they are not in the translation object yet
+    // Ideally, these should also be in the translation object if they need translation
+    const skillsMap = [
+        ["Agentforce", "Salesforce", "AI"],
+        ["Next.js", "React", "Firebase", "Tailwind", "Webpay"],
+        ["Quality Control", "Process Optimization"]
+    ]
+
     return (
         <section className="py-20 px-4 max-w-4xl mx-auto">
             <motion.div
@@ -40,13 +27,13 @@ export function ExperienceTimeline() {
             >
                 <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-2">
                     <Briefcase className="text-primary" />
-                    Experiencia
+                    {t.experience.title}
                 </h2>
                 <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
             </motion.div>
 
             <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-primary/50 before:to-transparent">
-                {experiences.map((exp, index) => (
+                {t.experience.items.map((exp, index) => (
                     <motion.div
                         key={index}
                         initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -80,7 +67,7 @@ export function ExperienceTimeline() {
                                     {exp.description}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
-                                    {exp.skills.map((skill, i) => (
+                                    {skillsMap[index].map((skill, i) => (
                                         <Badge key={i} variant="outline" className="border-primary/20 text-xs">
                                             {skill}
                                         </Badge>
