@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: 'export',
   images: {
@@ -8,10 +10,10 @@ const nextConfig: NextConfig = {
   // Optional: Change the output directory `out` -> `dist`
   // distDir: 'dist',
 
-  // IMPORTANT: If deploying to a user page (username.github.io), leave basePath empty.
-  // If deploying to a project page (username.github.io/repo-name), uncomment and set the repo name.
-  basePath: '/Portfolio',
-  assetPrefix: '/Portfolio',
+  // IMPORTANT: basePath and assetPrefix only apply in production (GitHub Pages)
+  // In development, you can access the site at http://localhost:3000
+  basePath: isProd ? '/Portfolio' : '',
+  assetPrefix: isProd ? '/Portfolio' : '',
 };
 
 export default nextConfig;
