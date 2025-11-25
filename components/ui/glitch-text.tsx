@@ -1,62 +1,54 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 interface GlitchTextProps {
     text: string
     className?: string
-    trigger?: any // When this changes, trigger the glitch
+    trigger?: any // Optional, kept for backward compatibility but ignored
 }
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*"
 
-export function GlitchText({ text, className = "", trigger }: GlitchTextProps) {
+export function GlitchText({ text, className = "" }: GlitchTextProps) {
     const [displayText, setDisplayText] = useState(text)
     const [isGlitching, setIsGlitching] = useState(false)
-    const previousTrigger = useRef(trigger)
+    const prevText = useRef(text)
 
     useEffect(() => {
-        // Only trigger if the trigger value actually changed
-        if (trigger !== previousTrigger.current) {
-            previousTrigger.current = trigger
+        // Trigger glitch when text changes
+        if (text !== prevText.current) {
+            prevText.current = text
             setIsGlitching(true)
 
             const originalText = text
-            const glitchDuration = 400 // Total glitch duration in ms
-            const iterations = 15 // Number of glitch frames
+            const glitchDuration = 450 // Slightly longer
+            const iterations = 18 // More frames
             const frameDelay = glitchDuration / iterations
 
             let currentIteration = 0
 
             const glitchInterval = setInterval(() => {
                 if (currentIteration < iterations) {
-                    // Calculate progress (0 to 1)
                     const progress = currentIteration / iterations
 
-                    // Create glitched text
                     const glitched = originalText
                         .split('')
                         .map((char, index) => {
-                            // Preserve spaces
                             if (char === ' ') return ' '
 
-                            // Gradually reveal the correct character based on progress
-                            const shouldReveal = Math.random() < progress
-
-                            if (shouldReveal) {
+                            // Reveal logic
+                            if (Math.random() < progress) {
                                 return originalText[index]
-                            } else {
-                                // Random character
-                                return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
                             }
+                            return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
                         })
                         .join('')
 
                     setDisplayText(glitched)
                     currentIteration++
                 } else {
-                    // Final frame - show correct text
                     setDisplayText(originalText)
                     setIsGlitching(false)
                     clearInterval(glitchInterval)
@@ -64,17 +56,22 @@ export function GlitchText({ text, className = "", trigger }: GlitchTextProps) {
             }, frameDelay)
 
             return () => clearInterval(glitchInterval)
-        } else {
-            // If trigger didn't change, just update text normally
+        }
+    }, [text])
+
+    // Ensure displayText is in sync on mount or if no glitch occurred (fallback)
+    useEffect(() => {
+        if (!isGlitching && displayText !== text) {
             setDisplayText(text)
         }
-    }, [text, trigger])
+    }, [text, isGlitching, displayText])
 
     return (
         <motion.span
-            className={className}
+            className={`inline-block ${className}`} // inline-block helps with transforms
             animate={{
-                opacity: isGlitching ? [1, 0.7, 1, 0.8, 1] : 1,
+                opacity: isGlitching ? [1, 0.8, 1, 0.9, 1] : 1,
+                filter: isGlitching ? ["blur(0px)", "blur(1px)", "blur(0px)"] : "blur(0px)",
             }}
             transition={{
                 duration: 0.4,
