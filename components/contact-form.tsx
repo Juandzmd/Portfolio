@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -9,20 +9,37 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Label } from "@/components/ui/label"
 import { Send, CheckCircle2, Sparkles } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import emailjs from '@emailjs/browser'
+import { GlitchText } from "@/components/ui/glitch-text"
 
 export function ContactForm() {
-    const { t } = useLanguage()
+    const { t, language } = useLanguage()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [focusedField, setFocusedField] = useState<string | null>(null)
+    const form = useRef<HTMLFormElement>(null)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        setIsSubmitting(false)
-        setIsSubmitted(true)
+
+        if (form.current) {
+            try {
+                await emailjs.sendForm(
+                    'service_41vkz2w',
+                    'template_ulifsik',
+                    form.current,
+                    'AetaTgfeC5F32gOkA'
+                )
+                setIsSubmitted(true)
+            } catch (error) {
+                console.error('FAILED...', error)
+                // Optionally handle error state here
+                alert("Failed to send message. Please try again.")
+            } finally {
+                setIsSubmitting(false)
+            }
+        }
     }
 
     return (
@@ -52,10 +69,10 @@ export function ContactForm() {
                                 <Sparkles className="w-8 h-8" />
                             </motion.div>
                             <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                                {t.contact.title}
+                                <GlitchText text={t.contact.title} trigger={language} />
                             </CardTitle>
                             <CardDescription className="text-base">
-                                {t.contact.subtitle}
+                                <GlitchText text={t.contact.subtitle} trigger={language} />
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -92,6 +109,7 @@ export function ContactForm() {
                                     </motion.div>
                                 ) : (
                                     <motion.form
+                                        ref={form}
                                         key="form"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
@@ -106,6 +124,7 @@ export function ContactForm() {
                                             <div className="relative">
                                                 <Input
                                                     id="name"
+                                                    name="user_name"
                                                     placeholder={t.contact.name_placeholder}
                                                     required
                                                     className="bg-background/50 border-primary/10 focus:border-primary/50 transition-all duration-300"
@@ -127,6 +146,7 @@ export function ContactForm() {
                                             <div className="relative">
                                                 <Input
                                                     id="email"
+                                                    name="user_email"
                                                     type="email"
                                                     placeholder={t.contact.email_placeholder}
                                                     required
@@ -149,6 +169,7 @@ export function ContactForm() {
                                             <div className="relative">
                                                 <Textarea
                                                     id="message"
+                                                    name="message"
                                                     placeholder={t.contact.message_placeholder}
                                                     className="min-h-[120px] bg-background/50 border-primary/10 focus:border-primary/50 transition-all duration-300 resize-none"
                                                     required

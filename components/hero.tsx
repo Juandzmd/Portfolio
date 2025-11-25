@@ -12,12 +12,15 @@ export function Hero() {
     const { t, language } = useLanguage()
     const [text, setText] = useState("")
     const [showContent, setShowContent] = useState(false)
+    const [isInitialLoad, setIsInitialLoad] = useState(true)
 
-    // Reset animation when language changes
+    // Reset animation when language changes - but only on initial load
     useEffect(() => {
-        setText("")
-        setShowContent(false)
-    }, [language])
+        if (isInitialLoad) {
+            setText("")
+            setShowContent(false)
+        }
+    }, [language, isInitialLoad])
 
     useEffect(() => {
         if (text.length < t.hero.prompt.length) {
@@ -28,6 +31,7 @@ export function Hero() {
         } else {
             const timeout = setTimeout(() => {
                 setShowContent(true)
+                setIsInitialLoad(false) // Mark initial load as complete
             }, 200) // Reduced from 500ms
             return () => clearTimeout(timeout)
         }

@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Briefcase } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { GlitchText } from "@/components/ui/glitch-text"
 
 export function ExperienceTimeline() {
-    const { t } = useLanguage()
+    const { t, language } = useLanguage()
 
     // Define skills for each item manually since they are not in the translation object yet
     // Ideally, these should also be in the translation object if they need translation
@@ -27,7 +28,7 @@ export function ExperienceTimeline() {
             >
                 <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-2">
                     <Briefcase className="text-primary" />
-                    {t.experience.title}
+                    <GlitchText text={t.experience.title} trigger={language} />
                 </h2>
                 <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
             </motion.div>
@@ -52,19 +53,19 @@ export function ExperienceTimeline() {
                             <CardHeader>
                                 <div className="flex justify-between items-start mb-2">
                                     <CardTitle className="text-lg font-bold text-primary">
-                                        {exp.role}
+                                        <GlitchText text={exp.role} trigger={language} />
                                     </CardTitle>
                                     <Badge variant="secondary" className="text-xs font-mono">
                                         {exp.period}
                                     </Badge>
                                 </div>
                                 <h3 className="text-base font-semibold text-muted-foreground">
-                                    {exp.company}
+                                    <GlitchText text={exp.company} trigger={language} />
                                 </h3>
                             </CardHeader>
                             <CardContent>
                                 <p className="text-sm text-muted-foreground mb-4">
-                                    {exp.description}
+                                    <GlitchText text={exp.description} trigger={language} />
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                     {skillsMap[index].map((skill, i) => (
