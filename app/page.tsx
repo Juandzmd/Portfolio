@@ -3,6 +3,7 @@
 import { Hero } from "@/components/hero"
 import { ExperienceTimeline } from "@/components/experience-timeline"
 import { TechStack } from "@/components/tech-stack"
+import { Projects } from "@/components/projects"
 import { Certifications } from "@/components/certifications"
 import { ContactForm } from "@/components/contact-form"
 import { useLanguage } from "@/lib/language-context"
@@ -12,6 +13,7 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
       <Hero />
       <ExperienceTimeline />
+      <Projects />
       <TechStack />
       <Certifications />
       <ContactForm />

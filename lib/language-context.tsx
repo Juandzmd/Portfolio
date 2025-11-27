@@ -31,6 +31,15 @@ type Translations = {
     certifications: {
         title: string
     }
+    projects: {
+        title: string
+        view_project: string
+        items: {
+            title: string
+            description: string
+            tags: string[]
+        }[]
+    }
     contact: {
         title: string
         subtitle: string
@@ -96,6 +105,17 @@ const translations: Record<Language, Translations> = {
         certifications: {
             title: "Certifications"
         },
+        projects: {
+            title: "Featured Projects",
+            view_project: "View Project",
+            items: [
+                {
+                    title: "MYN - Artisanal Coffee E-commerce",
+                    description: "A specialized e-commerce platform for artisanal coffee. Features a monthly subscription model and an intelligent coffee recommender system that guides users to their perfect blend based on taste preferences.",
+                    tags: ["E-commerce", "Recommender System", "Subscription Model", "Web Design"]
+                }
+            ]
+        },
         contact: {
             title: "Get in Touch",
             subtitle: "Have a project in mind? Let's build something intelligent.",
@@ -158,6 +178,17 @@ const translations: Record<Language, Translations> = {
         },
         certifications: {
             title: "Certificaciones"
+        },
+        projects: {
+            title: "Proyectos Destacados",
+            view_project: "Ver Proyecto",
+            items: [
+                {
+                    title: "MYN - E-commerce de Café Artesanal",
+                    description: "Una plataforma de comercio electrónico especializada para café artesanal. Cuenta con un modelo de suscripción mensual y un sistema recomendador de café inteligente que guía a los usuarios a su mezcla perfecta según sus preferencias.",
+                    tags: ["E-commerce", "Sistema Recomendador", "Suscripciones", "Diseño Web"]
+                }
+            ]
         },
         contact: {
             title: "Contáctame",
