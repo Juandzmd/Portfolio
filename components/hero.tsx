@@ -103,7 +103,10 @@ export function Hero() {
                         </div>
 
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-6">
-                            <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-8 text-lg">
+                            <Button
+                                className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-8 text-lg"
+                                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                            >
                                 <GlitchText text={t.hero.cta_projects} trigger={language} /> <ArrowRight className="w-5 h-5" />
                             </Button>
 

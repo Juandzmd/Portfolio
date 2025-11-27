@@ -12,7 +12,7 @@ export function Projects() {
     const { t, language } = useLanguage()
 
     return (
-        <section className="py-20 px-4 relative overflow-hidden">
+        <section id="projects" className="py-20 px-4 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
